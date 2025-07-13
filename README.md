@@ -1,261 +1,186 @@
-> **⚡ OASIS: The only AI scheduling assistant powered by real Multi-Constraint Programming (MCP) and Agent-to-Agent (A2A) collaboration. Experience the future of coordination, today.**
+# 🤖 AI Scheduling Assistant with MCP & A2A Architecture
 
-# OASIS  
-### OMNI AGENTIC SCHEDULING INTELLIGENT SYSTEM
-
-## 🚀 The Future of Scheduling is Here
-
-> **💡 Stop settling for simple scheduling tools. OASIS leverages MCP and A2A to deliver solutions no other system can.**
-
-Welcome to **OASIS**, a breakthrough solution for the [AMDAI Hackathon x E Cell IIT Mumbai](https://github.com/AMD-AI-HACKATHON/AI-Scheduling-Assistant) challenge.  
-OASIS is the world’s first truly context aware agentic AI scheduling assistant, designed to eliminate the chaos of coordination and redefine how people, time, and projects align.
-
-## 🏆 Why OASIS Was Created
-
-Imagine  
-Global teams scattered across continents and time zones  
-High stakes deadlines, critical project updates, and the clock always ticking  
-Endless email back and forth, double bookings, missed opportunities
-
-Scheduling is no longer just a clerical task. It is a bottleneck in the age of distributed, high velocity work.
-
-The AMDAI Hackathon, in collaboration with E Cell IIT Mumbai, set out the challenge to create an AI that goes beyond rules and routines—an assistant that reasons, adapts, and acts with true intelligence.
+[![Built with Python](https://img.shields.io/badge/Built%20with-Python-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://www.python.org)
+[![LLM-Powered](https://img.shields.io/badge/Powered%20by-LLM-blueviolet?style=for-the-badge&logo=openai&logoColor=white)](https://openai.com)
+[![Google Calendar API](https://img.shields.io/badge/Google%20Calendar%20API-Enabled-34A853?style=for-the-badge&logo=google-calendar&logoColor=white)](https://developers.google.com/calendar)
+[![MCP Architecture](https://img.shields.io/badge/Architecture-MCP%20%26%20A2A-orange?style=for-the-badge)]()
+[![Flask API](https://img.shields.io/badge/API-Flask%20REST%20Server-lightgrey?style=for-the-badge&logo=flask)](https://flask.palletsprojects.com/)
 
 ---
 
-> **🚀 With OASIS’s advanced MCP and A2A, your meetings don’t just get scheduled—they get optimized across all constraints and organizations.**
-
-## 💡 What Makes OASIS Different
-
-### 1. Context is King
-
-Traditional scheduling is static or rule based. OASIS is context based—it parses urgency, time zones, priorities, and even the intent behind your words.  
-It knows the difference between “let’s catch up” and “this is mission critical.”
-
-### 2. Agentic AI Beyond Automation
-
-- Understands natural language, project context, and attendees’ roles  
-- Reasons with priorities, resolves conflicts, and adapts to last minute changes  
-- Acts by initiating scheduling, following up, and rescheduling autonomously
-
-### 3. Global by Design
-
-OASIS ensures everyone is included—no more 3AM calls for your New York team.  
-It intelligently balances global calendars, work hours, and local constraints.
-
-### 4. Seamless Integration
-
-- Google Calendar API: Real time bi directional sync  
-- vLLM and SOTA LLMs: DeepSeek 7B, Meta Llama 3.1 8B for true human class comprehension  
-- Pythonic extensibility: Built for adaptability and future proofing
+> ⚡ **The next-gen scheduling assistant: Modular, intelligent, and autonomous — built on MCP and A2A for truly effortless meetings.**  
 
 ---
 
-## 🚨 The Power of MCP and A2A: The OASIS Revolution
+## 🧠 Project Overview
 
-> **🔄 Tired of “find a time” emails? OASIS’s MCP engine and A2A negotiation mean you never have to think about scheduling again — even with external partners.**
+**AI Scheduling Assistant** is a smart, agent-powered system that automates meeting scheduling using:
+- ✅ Live Google Calendar integration
+- ✅ Modular Agent Architecture (MCP Protocol)
+- ✅ Agent-to-Agent negotiation (A2A)
+- ✅ LLMs to parse human-written meeting emails
+- ✅ Direct timezone verification for globally distributed teams
 
-### Multi-Constraint Programming (MCP): The Brain Behind OASIS
+> 🌟 **MCP (Multi-Constraint Programming) and A2A (Agent-to-Agent) negotiation ensure every meeting respects all your constraints, priorities, and people — not just the first open slot.**
 
-OASIS is fundamentally powered by Multi-Constraint Programming (MCP). MCP enables OASIS to simultaneously optimize across dozens of real-world variables such as time zones, role-based priorities, availability, urgency, dependencies, and stakeholder preferences.  
-Unlike conventional tools that simply look for the first available slot, MCP ensures that every constraint is dynamically considered and balanced—even for the most challenging and high-stakes scheduling scenarios.
-
-### Agent-to-Agent (A2A) Collaboration: Intelligent Negotiation
-
-OASIS introduces Agent-to-Agent (A2A) collaboration, where scheduling agents communicate directly with each other—across teams, departments, and even between different organizations or OASIS instances.  
-A2A allows OASIS to negotiate, resolve conflicts, and secure win-win time slots for all parties, breaking the barriers that hinder ordinary scheduling solutions.
-
-With MCP and A2A working together, OASIS transforms even the most complex multi-party, multi-constraint scheduling challenge into a seamless, optimized process.
+Built to be modular, intelligent, and fully autonomous — perfect for remote teams, corporate calendars, and personal AI agents.
 
 ---
 
-## 🦄 How OASIS Excels Beyond Other Solutions
+## 🧩 Architecture Highlights
 
-While other scheduling tools:
-- Only check for open slots
-- Require manual intervention and negotiation
-- Ignore deep context, urgency, or cross-company needs
+### 🔷 MCP: Modular Command Protocol
 
-**OASIS stands apart:**
-- MCP-driven, context aware optimization: Every factor, every stakeholder, every nuance is considered
-- Agentic reasoning with advanced A2A: OASIS actively negotiates with other agents across teams, companies, and even platforms
-- Excels in complex scenarios: OASIS, with MCP and A2A, delivers where others fall short
-- Truly global and cross-organization: OASIS finds the best time for you—even with external partners
+> **Every core task is handled by a dedicated agent module. Agents operate independently and communicate via robust internal interfaces.** MCP enables optimal scheduling even in complex, multi-constraint scenarios.
 
-For the hardest scheduling problems, remember two things: MCP and A2A. That is OASIS.
+| Module               | Responsibility                             |
+|----------------------|--------------------------------------------|
+| `BossAgent`          | Orchestrates scheduling & final decision   |
+| `EmployeeAgent`      | Accesses calendar, finds slots, negotiates |
+| `MeetingParserAgent` | Parses human-like meeting emails           |
+| `TimezoneAgent`      | Validates global timezone compatibility    |
 
----
-
-> **🌎 OASIS is not just a tool. It’s a network of intelligent agents, all working together—A2A—for you, with MCP at its core.**
-
-## 🛠️ The OASIS Solution In Action
-
-### How OASIS Works
-
-1. Parses Email Request: Uses LLM to extract attendees, urgency, duration, and constraints from natural language
-2. Scans Calendars: Pulls real time events for all participants via Google Calendar API
-3. Contextual Reasoning: Assesses urgency, time zones, and priorities. Suggests optimal times, not just available times
-4. Schedules Autonomously: Books the meeting, updates all calendars, and notifies attendees
-5. Learns Preferences: Remembers recurring patterns and personalizes future scheduling
-
-## 🏅 Types of Scheduling
-
-- Static: Fixed slots, low flexibility  
-- Rule Based: Simple logic, quickly breaks in complex scenarios  
-- Dynamic: Reacts to changes, lacks deep understanding  
-- Priority Based: Considers importance, ignores full context  
-- Context Based (OASIS): Understands intent, urgency, time zones, and real world constraints—this is the new gold standard
-
-## 🦾 What We’re Doing Differently
-
-No more micromanagement: OASIS acts as your tireless scheduling chief of staff  
-No more one size fits all: Each meeting is unique, with context and stakeholder needs at the forefront  
-No more basic automation: This is agentic intelligence, not robotic repetition
+✅ **Loosely coupled. Easily extendable. Fully testable.**
 
 ---
 
-## 🔮 Future Scope: The OASIS Vision
+### 🔁 A2A: Agent-to-Agent Negotiation
 
-- Personalized Scheduling Agents: OASIS will adapt uniquely to you and your team  
-- Cross Platform Integration: Beyond Google—Microsoft, Apple, Slack, Teams  
-- Recurrence & Smart Suggestions: Handles recurring meetings with adaptive, context aware logic  
-- Federated Privacy: Schedules collaboratively without exposing private data  
-- Voice & Multimodal Interfaces: Speak, type, or tap—OASIS will understand  
-- Multi Agent Negotiation: OASIS agents can negotiate between organizations, projects, and external partners for seamless coordination
+> **A2A is what sets us apart.** Agents discuss among themselves to finalize the best meeting time:
+- Each `EmployeeAgent` proposes available slots.
+- They analyze others’ proposals and negotiate using LLMs.
+- Final time is picked with maximum consensus by the `BossAgent`.
 
 ---
 
-> **🧠 When you need real intelligence, real negotiation, and real optimization—MCP and A2A inside OASIS deliver. Don’t just schedule. Orchestrate.**
+## 🔥 Key Features
 
-## 📝 How to Use OASIS
+### ✅ Real-Time Google Calendar Integration
+- Authenticated access for each employee's calendar
+- Reads live events using Google API
+- Adds new scheduled meetings automatically
+
+### 🧠 LLM-Based Understanding
+- Parses natural language meeting requests like:  
+  _"Let's do 45 mins next Thursday around 3 PM. It's urgent."_
+- Extracts:
+  - Duration
+  - Urgency
+  - Preferred time
+
+### 🧠 AI Slot Discovery
+- Uses LLM to suggest optimal 30–60 min time slots
+- Honors business hours: 9AM–6PM
+- Provides confidence scores for each slot
+
+### 🌐 Timezone Compatibility Agent
+- Checks if each employee is **within working hours**
+- Provides alternate suggestion (e.g., 4PM IST → 6:30AM EST)
+
+### 🔁 AI Agent Negotiation (A2A)
+- Each agent compares its slots with others
+- Uses LLM to agree on the **most compatible time**
+
+### 🔐 Fallback-First Architecture
+- Every AI call has a graceful fallback mechanism
+- Ensures reliability even if AI or network fails
+
+### 📡 Flask API Server
+- Endpoint: `POST /receive`
+- Input: JSON-based meeting request
+- Output: Fully formatted meeting metadata with calendar state
+
+---
+
+> 💬 **With MCP and A2A, this assistant doesn’t just automate — it collaborates, negotiates, and optimizes for you.**
+
+---
+
+## 📦 Sample Input
+
+```json
+{
+  "Request_id": "123456",
+  "Datetime": "13-07-2025T10:00:00",
+  "Location": "Zoom",
+  "From": "userone.amd@gmail.com",
+  "Attendees": [
+    {"email": "usertwo.amd@gmail.com"},
+    {"email": "userthree.amd@gmail.com"}
+  ],
+  "Subject": "Project Sync",
+  "EmailContent": "Hey team, can we do a 45-minute sync this Thursday afternoon? It’s urgent."
+}
+```
+
+---
+
+## 🖥️ Sample Output (AI Scheduled)
+
+```json
+{
+  "EventStart": "2025-07-17T16:00:00+05:30",
+  "EventEnd": "2025-07-17T16:45:00+05:30",
+  "Attendees": [
+    {
+      "email": "usertwo.amd@gmail.com",
+      "events": [...]
+    }
+  ],
+  "MetaData": {
+    "timezone_verification": {...},
+    "scheduling_step": "Boss Agent verified timezone compatibility before scheduling"
+  }
+}
+```
+
+---
+
+## 🛠️ Tech Stack
+
+| Component       | Technology               |
+|----------------|--------------------------|
+| Backend Server | Flask                    |
+| AI Model       | DeepSeek/LLM (7B)        |
+| Auth           | Google OAuth2            |
+| Calendar       | Google Calendar API v3   |
+| Timezones      | `pytz`, `datetime`       |
+| AI Fallbacks   | Hard-coded slot logic    |
+
+---
+
+## 🧪 Run Locally
 
 1. **Clone the repo**
-    ```bash
-    git clone https://github.com/AMD-AI-HACKATHON/AI-Scheduling-Assistant.git
-    cd AI-Scheduling-Assistant
-    ```
-2. **Set up dependencies**  
-   Ensure Python environment and install required packages from `requirements.txt`
-
-3. **Launch vLLM server**  
-   For [DeepSeek LLM 7B](https://github.com/deepseek-ai/DeepSeek-LLM) or [Meta Llama 3.1 8B](https://ai.meta.com/resources/models-and-libraries/llama-downloads/) run
-    ```bash
-    HIP_VISIBLE_DEVICES=0 vllm serve /home/user/Models/deepseek-ai/deepseek-llm-7b-chat --gpu-memory-utilization 0.9 --swap-space 16 --host 0.0.0.0 --port 3000
-    ```
-
-4. **Configure Google Calendar API**  
-   Place your credentials as per the instructions in `Calendar_Event_Extraction` notebook
-
-5. **Run the assistant**  
-   Call the main function in your Python code
-    ```python
-    from solution import your_meeting_assistant
-    result = your_meeting_assistant(input_json)
-    print(result)
-    ```
-
-## 🗂️ Input Output Format
-
-### Input Format
-
-```json
-{
-    "Request_id": "comprehensive-test-001",
-    "Datetime": "02-07-2025T12:34:55",
-    "Location": "IIT Mumbai",
-    "From": "teamadmin.amd@gmail.com",
-    "Attendees": [
-        {"email": "userone.amd@gmail.com"},
-        {"email": "usertwo.amd@gmail.com"},
-        {"email": "userthree.amd@gmail.com"}
-    ],
-    "Subject": "Comprehensive AI Scheduling Test - Multi-Agent Coordination",
-    "EmailContent": "Hi Team! This is an urgent meeting request. We need to discuss the Agentic AI Project status update. Please schedule a 45-minute meeting for next Monday at 3:00 PM IST. This is critical for our project timeline. Also, we need to coordinate with the New York team, so please ensure the time works for everyone across timezones. The meeting should cover: 1) Project milestones, 2) Resource allocation, 3) Risk assessment, and 4) Next steps. Please make sure all stakeholders can attend."
-}
-```
-
-### Output Format
-
-```json
-{
-    "Request_id": "comprehensive-test-001",
-    "Datetime": "02-07-2025T12:34:55",
-    "Location": "IIT Mumbai",
-    "From": "teamadmin.amd@gmail.com",
-    "Attendees": [
-        {
-            "email": "userone.amd@gmail.com",
-            "events": [
-                {
-                    "StartTime": "2025-07-14T15:00:00+05:30",
-                    "EndTime": "2025-07-14T15:45:00+05:30",
-                    "NumAttendees": 4,
-                    "Attendees": [
-                        "teamadmin.amd@gmail.com",
-                        "userone.amd@gmail.com",
-                        "usertwo.amd@gmail.com",
-                        "userthree.amd@gmail.com"
-                    ],
-                    "Summary": "Comprehensive AI Scheduling Test - Multi-Agent Coordination"
-                }
-            ]
-        },
-        {
-            "email": "usertwo.amd@gmail.com",
-            "events": [
-                {
-                    "StartTime": "2025-07-14T15:00:00+05:30",
-                    "EndTime": "2025-07-14T15:45:00+05:30",
-                    "NumAttendees": 4,
-                    "Attendees": [
-                        "teamadmin.amd@gmail.com",
-                        "userone.amd@gmail.com",
-                        "usertwo.amd@gmail.com",
-                        "userthree.amd@gmail.com"
-                    ],
-                    "Summary": "Comprehensive AI Scheduling Test - Multi-Agent Coordination"
-                }
-            ]
-        },
-        {
-            "email": "userthree.amd@gmail.com",
-            "events": [
-                {
-                    "StartTime": "2025-07-14T15:00:00+05:30",
-                    "EndTime": "2025-07-14T15:45:00+05:30",
-                    "NumAttendees": 4,
-                    "Attendees": [
-                        "teamadmin.amd@gmail.com",
-                        "userone.amd@gmail.com",
-                        "usertwo.amd@gmail.com",
-                        "userthree.amd@gmail.com"
-                    ],
-                    "Summary": "Comprehensive AI Scheduling Test - Multi-Agent Coordination"
-                }
-            ]
-        }
-    ],
-    "Subject": "Comprehensive AI Scheduling Test - Multi-Agent Coordination",
-    "EmailContent": "Hi Team! This is an urgent meeting request. We need to discuss the Agentic AI Project status update. Please schedule a 45-minute meeting for next Monday at 3:00 PM IST. This is critical for our project timeline. Also, we need to coordinate with the New York team, so please ensure the time works for everyone across timezones. The meeting should cover: 1) Project milestones, 2) Resource allocation, 3) Risk assessment, and 4) Next steps. Please make sure all stakeholders can attend.",
-    "EventStart": "2025-07-14T15:00:00+05:30",
-    "EventEnd": "2025-07-14T15:45:00+05:30",
-    "Duration_mins": "45",
-    "MetaData": {}
-}
-```
+2. **Install requirements**  
+   ```bash
+   pip install -r requirements.txt
+   ```
+3. **Start your LLM server locally** (e.g., OpenRouter or DeepSeek)
+4. **Run Flask**
+   ```bash
+   python app.py
+   ```
 
 ---
 
-> **🎯 OASIS, with MCP and A2A, is your competitive edge in the modern, interconnected workplace. Welcome to a new era of intelligent scheduling.**
+## 🤝 Contribution Ideas
 
-## 💬 Acknowledgements
+- Add meeting cancellation/rescheduling flow
+- Support Microsoft Outlook calendars
+- Train a fine-tuned model for better negotiation
+- Add web UI dashboard (Next.js frontend)
 
-Grateful for the inspiration and support from **AMDAI Hackathon Team** and **E Cell IIT Mumbai**  
-Thank you for pushing us to build the future together
+---
 
-## 🤝 Join the Revolution
+## 📜 License
 
-OASIS is open for collaboration, feedback, and contributions.  
-Raise an issue, star the repo, and help us build the next era of agentic AI.
+MIT License. Free to use, extend, and adapt for any scheduling platform or AI assistant framework.
 
-> **OASIS isn’t just a scheduling tool. It is the dawn of intelligent, context-driven collaboration, powered by MCP and A2A. Welcome to the future.**
+---
+
+> ✨ **MCP and A2A make this assistant more than just a bot — it’s your personal, always-on, negotiation-ready scheduling team.**
+
+---
+
+### 🚀 Let the agents handle your calendar. You focus on what matters.
