@@ -1,3 +1,5 @@
+
+
 import asyncio
 import aiohttp
 import concurrent.futures
@@ -774,7 +776,7 @@ def dashboard():
     <div class="container">
         <div class="header">
             <h1>🤖 AI Meeting Assistant</h1>
-            <p><span class="status-indicator status-online"></span>System Running on Port 5002</p>
+            <p><span class="status-indicator status-online"></span>System Running on Port 5000</p>
         </div>
         
         <div class="cards-grid">
