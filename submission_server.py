@@ -422,15 +422,67 @@ class OptimizedBossAgent:
         self.timezone_agent = TimezoneVerificationAgent()  # MCP-ENHANCED TIMEZONE AGENT
     
     def parse_meeting_request(self, email_content: str, request_datetime: str) -> Dict:
-        """EXACT SAME logic as your original"""
+        """ENHANCED with AI-powered date and time parsing"""
         base_date = datetime.strptime(request_datetime, '%d-%m-%YT%H:%M:%S')
         
         try:
-            # YOUR EXACT MeetingParserAgent call
-            return self.parser_agent.parse_request(email_content, request_datetime)
+            # ENHANCED AI SYSTEM PROMPT for better date/time parsing
+            enhanced_system_prompt = """You are an expert meeting scheduler. Parse meeting requests and extract:
+1. Duration in minutes (default: 30)
+2. Urgency level (low/medium/high/urgent, default: medium)
+3. Preferred date and time in ISO format with IST timezone (+05:30)
+
+IMPORTANT RULES:
+- Current date context: {base_date}
+- If a day is mentioned (Monday, Tuesday, etc.), calculate the NEXT occurrence of that day
+- If "today" or "now" is mentioned, use tomorrow
+- If "tomorrow" is mentioned, use the day after current date
+- If "next week" is mentioned, add 7 days to current date
+- If time is mentioned (2 PM, 3:30 PM, etc.), use that time; otherwise default to 14:00 (2 PM)
+- Always return dates in the future relative to the current date
+- Handle relative dates like "next Monday", "this Friday", "next week Tuesday"
+
+Return JSON: {{"duration_minutes": 30, "urgency": "medium", "preferred_datetime": "2025-07-17T14:00:00+05:30"}}"""
+
+            user_prompt = f"""Parse this meeting request: "{email_content}"
+Current date: {base_date.strftime('%Y-%m-%d %A')}"""
+
+            # ENHANCED AI CALL with better prompt
+            response = self.ai_client.chat.completions.create(
+                model=AI_MODEL,
+                messages=[
+                    {"role": "system", "content": enhanced_system_prompt.format(base_date=base_date.strftime('%Y-%m-%d %A'))},
+                    {"role": "user", "content": user_prompt}
+                ],
+                temperature=0.1,
+                max_tokens=200  # Increased for better parsing
+            )
+            
+            result = response.choices[0].message.content.strip()
+            print(f"🤖 AI Date/Time Parsing Result: {result}")
+            
+            if result:
+                # Clean up potential JSON issues
+                cleaned_result = result
+                if not cleaned_result.startswith('{'):
+                    start_idx = cleaned_result.find('{')
+                    if start_idx != -1:
+                        cleaned_result = cleaned_result[start_idx:]
+                
+                # Fix truncated JSON
+                if cleaned_result.count('{') > cleaned_result.count('}'):
+                    missing_braces = cleaned_result.count('{') - cleaned_result.count('}')
+                    cleaned_result += '}' * missing_braces
+                
+                parsed = json.loads(cleaned_result)
+                print(f"✅ AI Date/Time Parse Success: {parsed}")
+                return parsed
+            else:
+                raise ValueError("Empty AI response")
+                
         except Exception as e:
-            print(f"AI parsing failed: {e}, using fallback")
-            # YOUR EXACT FALLBACK LOGIC
+            print(f"AI parsing failed: {e}, using enhanced fallback")
+            # ENHANCED FALLBACK LOGIC with better date calculation
             duration = 30
             if "45 minutes" in email_content.lower() or "45 min" in email_content.lower():
                 duration = 45
@@ -440,15 +492,108 @@ class OptimizedBossAgent:
             urgency = "medium"
             if "urgent" in email_content.lower():
                 urgency = "urgent"
+            elif "high" in email_content.lower():
+                urgency = "high"
+            elif "low" in email_content.lower():
+                urgency = "low"
             
-            next_thursday = base_date + timedelta(days=(3 - base_date.weekday()) % 7)
-            if next_thursday <= base_date:
-                next_thursday += timedelta(days=7)
+            # ENHANCED DATE CALCULATION with AI-like logic
+            current_weekday = base_date.weekday()  # Monday=0, Sunday=6
+            email_lower = email_content.lower()
+            
+            # Enhanced day detection with more patterns
+            target_day = None
+            days_mapping = {
+                'monday': 0, 'mon': 0, 'monday': 0,
+                'tuesday': 1, 'tues': 1, 'tue': 1,
+                'wednesday': 2, 'wed': 2,
+                'thursday': 3, 'thurs': 3, 'thu': 3,
+                'friday': 4, 'fri': 4,
+                'saturday': 5, 'sat': 5,
+                'sunday': 6, 'sun': 6
+            }
+            
+            # Check for specific day mentions
+            for day_name, day_num in days_mapping.items():
+                if day_name in email_lower:
+                    target_day = day_num
+                    break
+            
+            # Check for relative time expressions
+            if "today" in email_lower or "now" in email_lower:
+                target_date = base_date + timedelta(days=1)  # Tomorrow
+            elif "tomorrow" in email_lower:
+                target_date = base_date + timedelta(days=1)
+            elif "next week" in email_lower:
+                if target_day is not None:
+                    # Next week's specific day
+                    days_to_add = 7 + (target_day - current_weekday)
+                    if days_to_add <= 7:  # If it would be this week, add another week
+                        days_to_add += 7
+                    target_date = base_date + timedelta(days=days_to_add)
+                else:
+                    target_date = base_date + timedelta(days=7)  # Next week Monday
+            elif target_day is not None:
+                # Calculate next occurrence of the specified day
+                if current_weekday <= target_day:
+                    days_to_add = target_day - current_weekday
+                    if days_to_add == 0:  # Same day, go to next week
+                        days_to_add = 7
+                else:
+                    days_to_add = 7 - (current_weekday - target_day)
+                target_date = base_date + timedelta(days=days_to_add)
+            else:
+                # Default to next Thursday
+                if current_weekday <= 3:  # Thursday or earlier
+                    days_to_add = 3 - current_weekday
+                    if days_to_add == 0:  # Today is Thursday
+                        days_to_add = 7
+                else:
+                    days_to_add = 7 - (current_weekday - 3)
+                target_date = base_date + timedelta(days=days_to_add)
+            
+            # ENHANCED TIME EXTRACTION with more patterns
+            import re
+            time_patterns = [
+                r'(\d{1,2}):?(\d{0,2})\s*(am|pm|a\.m|p\.m)',
+                r'(\d{1,2})\s*(am|pm|a\.m|p\.m)',
+                r'at\s+(\d{1,2}):?(\d{0,2})',
+                r'(\d{1,2}):(\d{2})\s*(am|pm|a\.m|p\.m)'
+            ]
+            
+            extracted_time = None
+            for pattern in time_patterns:
+                time_match = re.search(pattern, email_lower)
+                if time_match:
+                    groups = time_match.groups()
+                    if len(groups) >= 2:
+                        hour = int(groups[0])
+                        if len(groups) == 3:  # Has minutes
+                            minute = int(groups[1]) if groups[1] else 0
+                            am_pm = groups[2].lower()
+                        else:  # No minutes
+                            minute = 0
+                            am_pm = groups[1].lower()
+                        
+                        # Convert to 24-hour format
+                        if am_pm in ['pm', 'p.m'] and hour != 12:
+                            hour += 12
+                        elif am_pm in ['am', 'a.m'] and hour == 12:
+                            hour = 0
+                        
+                        extracted_time = (hour, minute)
+                        break
+            
+            if extracted_time:
+                target_datetime = target_date.replace(hour=extracted_time[0], minute=extracted_time[1])
+            else:
+                # Default to 2 PM if no time specified
+                target_datetime = target_date.replace(hour=14, minute=0)
             
             return {
                 "duration_minutes": duration,
                 "urgency": urgency,
-                "preferred_datetime": next_thursday.strftime('%Y-%m-%dT14:00:00+05:30')
+                "preferred_datetime": target_datetime.strftime('%Y-%m-%dT%H:%M:%S+05:30')
             }
     
     def coordinate_scheduling_parallel(self, participants: List[str], meeting_info: Dict) -> Dict:
