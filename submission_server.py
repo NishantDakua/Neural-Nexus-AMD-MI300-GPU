@@ -1,8 +1,4 @@
 #!/usr/bin/env python3
-"""
-TRUE preservation of your original AI logic with ONLY execution optimization
-EVERY AI call, prompt, and logic flow preserved 100%
-"""
 
 import asyncio
 import aiohttp
@@ -12,10 +8,8 @@ import time
 import os
 from dotenv import load_dotenv
 
-# Load environment variables
 load_dotenv()
 
-# Import everything from your original code
 from datetime import datetime, timedelta
 from typing import List, Dict, Any, Optional
 import pytz
@@ -26,9 +20,7 @@ from googleapiclient.discovery import build
 from flask import Flask, request, jsonify
 from threading import Thread
 
-# Your EXACT original configurations
 def load_employee_tokens():
-    """EXACT SAME as your original"""
     employee_emails = [
         "userone.amd@gmail.com",
         "usertwo.amd@gmail.com", 
@@ -57,14 +49,11 @@ EMPLOYEE_TOKENS = load_employee_tokens()
 AI_BASE_URL = os.getenv("AI_BASE_URL")
 AI_MODEL = os.getenv("AI_MODEL")
 
-# EXACT SAME TimezoneVerificationAgent (no AI calls anyway)
 class TimezoneVerificationAgent:
-    """EXACT COPY of your original"""
     def __init__(self):
         pass
 
     def verify_timezone_compatibility(self, proposed_time: str, employee_agents: Dict) -> Dict:
-        """EXACT SAME logic as your original"""
         timezone_assignments = {
             "userone.amd@gmail.com": "Asia/Kolkata",
             "usertwo.amd@gmail.com": "America/New_York",
@@ -134,21 +123,16 @@ class TimezoneVerificationAgent:
                 "verification_method": "Ultimate fallback"
             }
 
-# EXACT SAME MeetingParserAgent with YOUR AI logic
 class MeetingParserAgent:
-    """EXACT COPY of your original with SAME system prompt"""
     def __init__(self):
         self.ai_client = OpenAI(api_key="NULL", base_url=AI_BASE_URL)
-        # YOUR EXACT SYSTEM PROMPT
         self.system_prompt = """Parse meeting requests. Extract duration, urgency, datetime. Return JSON: {"duration_minutes":30,"urgency":"medium","preferred_datetime":"2025-07-03T14:00:00+05:30"}"""
 
     def parse_request(self, email_content: str, request_datetime: str) -> Dict:
-        """EXACT SAME AI logic as your original"""
         base_date = datetime.strptime(request_datetime, '%d-%m-%YT%H:%M:%S')
         user_prompt = f"Parse: {email_content}. Date: {base_date.strftime('%Y-%m-%d')}."
 
         try:
-            # YOUR EXACT AI CALL
             response = self.ai_client.chat.completions.create(
                 model=AI_MODEL,
                 messages=[
@@ -168,10 +152,7 @@ class MeetingParserAgent:
             print(f"MeetingParserAgent failed: {e}")
             raise e
 
-# OPTIMIZED EmployeeAgent that preserves ALL your AI logic
 class OptimizedEmployeeAgent:
-    """Same AI logic as your original, just with parallel execution capability"""
-    
     def __init__(self, email: str, token_info: Dict):
         self.email = email
         self.token_info = token_info
@@ -179,7 +160,6 @@ class OptimizedEmployeeAgent:
         self.ai_client = OpenAI(api_key="NULL", base_url=AI_BASE_URL)
         
     def _init_calendar(self):
-        """EXACT SAME as your original"""
         creds = Credentials(
             token=self.token_info["token"],
             refresh_token=self.token_info["refresh_token"],
@@ -191,7 +171,6 @@ class OptimizedEmployeeAgent:
         return build("calendar", "v3", credentials=creds)
     
     def get_calendar_events(self, start_time: str, end_time: str) -> List[Dict]:
-        """EXACT SAME logic as your original"""
         events_result = self.calendar_service.events().list(
             calendarId='primary',
             timeMin=start_time,
@@ -221,11 +200,9 @@ class OptimizedEmployeeAgent:
         return processed_events
     
     def find_available_slots(self, start_date: str, end_date: str, duration_mins: int) -> List[Dict]:
-        """EXACT SAME AI logic as your original"""
         calendar_events = self.get_calendar_events(start_date, end_date)
         
         try:
-            # YOUR EXACT logic for busy times
             busy_times = []
             for event in calendar_events:
                 busy_times.append({
@@ -233,13 +210,11 @@ class OptimizedEmployeeAgent:
                     "end": event["EndTime"]
                 })
             
-            # YOUR EXACT PROMPT
             prompt = f"""Find {duration_mins}min slots between {start_date} and {end_date}. 
 Busy: {json.dumps(busy_times[:10])}
 Hours: 9AM-6PM weekdays.
 Return JSON: [{{"start":"2025-07-17T10:00:00+05:30","end":"2025-07-17T10:30:00+05:30","score":0.9}}]"""
             
-            # YOUR EXACT AI CALL
             response = self.ai_client.chat.completions.create(
                 model=AI_MODEL,
                 messages=[{"role": "user", "content": prompt}],
@@ -254,7 +229,6 @@ Return JSON: [{{"start":"2025-07-17T10:00:00+05:30","end":"2025-07-17T10:30:00+0
                 raise ValueError("Empty response")
         except Exception as e:
             print(f"AI slot finding failed for {self.email}: {e}, using fallback")
-            # YOUR EXACT FALLBACK LOGIC
             start_dt = datetime.fromisoformat(start_date.replace('+05:30', ''))
             slots = []
             for i in range(5):
@@ -268,16 +242,13 @@ Return JSON: [{{"start":"2025-07-17T10:00:00+05:30","end":"2025-07-17T10:30:00+0
             return slots
     
     def negotiate_slot(self, proposed_slots: List[Dict], other_agents_proposals: List[Dict]) -> Dict:
-        """EXACT SAME AI negotiation logic as your original"""
         try:
-            # YOUR EXACT PROMPT
             prompt = f"""Agent {self.email} negotiation.
 My slots: {json.dumps(proposed_slots[:3])}
 Others: {json.dumps(other_agents_proposals[:2])}
 Pick best common slot.
 Return: {{"start":"...","end":"...","confidence":0.9}}"""
             
-            # YOUR EXACT AI CALL
             response = self.ai_client.chat.completions.create(
                 model=AI_MODEL,
                 messages=[{"role": "user", "content": prompt}],
@@ -292,7 +263,6 @@ Return: {{"start":"...","end":"...","confidence":0.9}}"""
                 raise ValueError("Empty response")
         except Exception as e:
             print(f"AI negotiation failed for {self.email}: {e}, using fallback")
-            # YOUR EXACT FALLBACK LOGIC
             if proposed_slots:
                 return {
                     "start": proposed_slots[0]["start"],
@@ -306,29 +276,23 @@ Return: {{"start":"...","end":"...","confidence":0.9}}"""
                     "confidence": 0.5
                 }
 
-# OPTIMIZED BossAgent with ALL your AI logic preserved
 class OptimizedBossAgent:
-    """Preserves ALL your AI logic, adds parallel execution"""
-    
     def __init__(self):
         self.ai_client = OpenAI(api_key="NULL", base_url=AI_BASE_URL)
         self.employee_agents = {}
         for email, token_info in EMPLOYEE_TOKENS.items():
             self.employee_agents[email] = OptimizedEmployeeAgent(email, token_info)
         self.ist_tz = pytz.timezone('Asia/Kolkata')
-        self.parser_agent = MeetingParserAgent()  # YOUR EXACT PARSER
-        self.timezone_agent = TimezoneVerificationAgent()  # YOUR EXACT TIMEZONE AGENT
+        self.parser_agent = MeetingParserAgent()
+        self.timezone_agent = TimezoneVerificationAgent()
     
     def parse_meeting_request(self, email_content: str, request_datetime: str) -> Dict:
-        """EXACT SAME logic as your original"""
         base_date = datetime.strptime(request_datetime, '%d-%m-%YT%H:%M:%S')
         
         try:
-            # YOUR EXACT MeetingParserAgent call
             return self.parser_agent.parse_request(email_content, request_datetime)
         except Exception as e:
             print(f"AI parsing failed: {e}, using fallback")
-            # YOUR EXACT FALLBACK LOGIC
             duration = 30
             if "45 minutes" in email_content.lower() or "45 min" in email_content.lower():
                 duration = 45
@@ -350,9 +314,6 @@ class OptimizedBossAgent:
             }
     
     def coordinate_scheduling_parallel(self, participants: List[str], meeting_info: Dict) -> Dict:
-        """SAME coordination logic with parallel execution"""
-        
-        # YOUR EXACT time window calculation
         if meeting_info.get('preferred_datetime'):
             start_date = datetime.fromisoformat(meeting_info['preferred_datetime'].replace('+05:30', ''))
         else:
@@ -364,7 +325,6 @@ class OptimizedBossAgent:
         start_str = start_date.strftime('%Y-%m-%dT00:00:00+05:30')
         end_str = end_date.strftime('%Y-%m-%dT23:59:59+05:30')
         
-        # YOUR EXACT timezone verification
         proposed_time = meeting_info.get('preferred_datetime', start_str)
         print(f"🔍 Timezone verification for proposed time: {proposed_time}")
         timezone_verification = self.timezone_agent.verify_timezone_compatibility(
@@ -372,7 +332,6 @@ class OptimizedBossAgent:
         )
         print(f"🔍 Timezone verification result: {json.dumps(timezone_verification, indent=2)}")
         
-        # YOUR EXACT timezone handling
         if not timezone_verification.get('compatible', True):
             suggested_time = timezone_verification.get('suggested_alternative', proposed_time)
             print(f"Timezone conflict detected. Using suggested time: {suggested_time}")
@@ -381,17 +340,13 @@ class OptimizedBossAgent:
             start_str = start_date.strftime('%Y-%m-%dT00:00:00+05:30')
             end_str = (start_date + timedelta(days=search_days.get(meeting_info['urgency'], 14))).strftime('%Y-%m-%dT23:59:59+05:30')
         
-        # ONLY OPTIMIZATION: Parallel execution of YOUR EXACT AI logic
-        # Phase 1: Parallel slot finding with YOUR EXACT AI calls
         def find_slots_for_participant(participant):
             if participant in self.employee_agents:
                 agent = self.employee_agents[participant]
-                # YOUR EXACT AI slot finding call
                 slots = agent.find_available_slots(start_str, end_str, meeting_info['duration_minutes'])
                 return participant, slots
             return participant, []
         
-        # Execute YOUR AI calls in parallel
         all_proposals = {}
         with ThreadPoolExecutor(max_workers=len(participants)) as executor:
             futures = [executor.submit(find_slots_for_participant, p) for p in participants]
@@ -399,17 +354,14 @@ class OptimizedBossAgent:
                 participant, slots = future.result()
                 all_proposals[participant] = slots
         
-        # Phase 2: Parallel negotiation with YOUR EXACT AI calls
         def negotiate_for_participant(participant):
             if participant in self.employee_agents:
                 agent = self.employee_agents[participant]
                 other_proposals = [slots[:3] for email, slots in all_proposals.items() if email != participant]
-                # YOUR EXACT AI negotiation call
                 result = agent.negotiate_slot(all_proposals[participant], other_proposals)
                 return result
             return {}
         
-        # Execute YOUR AI negotiations in parallel
         negotiation_results = []
         with ThreadPoolExecutor(max_workers=len(participants)) as executor:
             futures = [executor.submit(negotiate_for_participant, p) for p in participants]
@@ -418,16 +370,13 @@ class OptimizedBossAgent:
                 if result:
                     negotiation_results.append(result)
         
-        # Phase 3: YOUR EXACT boss decision
         final_decision = self.make_final_decision(negotiation_results, meeting_info)
         final_decision['timezone_verification'] = timezone_verification
         
         return final_decision
     
     def make_final_decision(self, negotiation_results: List[Dict], meeting_info: Dict) -> Dict:
-        """EXACT SAME boss AI logic as your original"""
         try:
-            # YOUR EXACT PROMPT
             prompt = f"""Boss final decision.
 Duration: {meeting_info['duration_minutes']}mins
 Urgency: {meeting_info['urgency']}
@@ -436,7 +385,6 @@ Results: {json.dumps(negotiation_results[:3])}
 Pick best time with highest consensus.
 Return: {{"start":"2025-07-17T14:00:00+05:30","end":"2025-07-17T14:30:00+05:30","confidence":0.95}}"""
             
-            # YOUR EXACT AI CALL
             response = self.ai_client.chat.completions.create(
                 model=AI_MODEL,
                 messages=[{"role": "user", "content": prompt}],
@@ -451,7 +399,6 @@ Return: {{"start":"2025-07-17T14:00:00+05:30","end":"2025-07-17T14:30:00+05:30",
                 raise ValueError("Empty response")
         except Exception as e:
             print(f"AI final decision failed: {e}, using fallback")
-            # YOUR EXACT FALLBACK LOGIC
             if negotiation_results:
                 best_result = max(negotiation_results, key=lambda x: x.get('confidence', 0))
                 return {
@@ -470,37 +417,29 @@ Return: {{"start":"2025-07-17T14:00:00+05:30","end":"2025-07-17T14:30:00+05:30",
                 }
 
 def optimized_your_meeting_assistant(data):
-    """EXACT SAME logic flow as your original, just parallel execution"""
     try:
         start_time = time.time()
         
-        # Use optimized boss agent (preserves ALL your AI)
         boss = OptimizedBossAgent()
         
-        # YOUR EXACT parsing step
         meeting_info = boss.parse_meeting_request(
             data['EmailContent'],
             data['Datetime']
         )
         
-        # YOUR EXACT participant logic
         all_participants = [data['From']] + [a['email'] for a in data['Attendees']]
         
-        # YOUR EXACT coordination with parallel optimization
         scheduled_meeting = boss.coordinate_scheduling_parallel(all_participants, meeting_info)
         
-        # YOUR EXACT output building
         search_date = datetime.fromisoformat(scheduled_meeting['start'].replace('+05:30', ''))
         day_start = search_date.strftime('%Y-%m-%dT00:00:00+05:30')
         day_end = search_date.strftime('%Y-%m-%dT23:59:59+05:30')
         
-        # Parallel calendar fetching for output (only optimization here)
         def get_events_for_participant(participant):
             events = []
             if participant in boss.employee_agents:
                 events = boss.employee_agents[participant].get_calendar_events(day_start, day_end)
             
-            # YOUR EXACT new meeting addition
             events.append({
                 "StartTime": scheduled_meeting['start'],
                 "EndTime": scheduled_meeting['end'],
@@ -514,14 +453,12 @@ def optimized_your_meeting_assistant(data):
                 "events": events
             }
         
-        # Execute calendar fetching in parallel
         attendees_with_events = []
         with ThreadPoolExecutor(max_workers=len(all_participants)) as executor:
             futures = [executor.submit(get_events_for_participant, p) for p in all_participants]
             for future in as_completed(futures):
                 attendees_with_events.append(future.result())
         
-        # YOUR EXACT output format
         output = {
             "Request_id": data['Request_id'],
             "Datetime": data['Datetime'],
@@ -543,7 +480,6 @@ def optimized_your_meeting_assistant(data):
             }
         }
         
-        # YOUR EXACT processed format
         processed = {
             "Request_id": data['Request_id'],
             "Datetime": data['Datetime'],
@@ -568,7 +504,6 @@ def optimized_your_meeting_assistant(data):
         data["output"] = {"error": str(e)}
         return data
 
-# Flask server with optimized function
 app = Flask(__name__)
 received_data = []
 
