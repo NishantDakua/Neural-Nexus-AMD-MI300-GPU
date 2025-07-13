@@ -9,7 +9,7 @@
 [![License](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
 
-![WhatsApp Image 2025-07-13 at 13 41 00_825fe374](https://github.com/user-attachments/assets/7fc9055b-39bf-41ba-8c6e-2aa5456e1b5c)
+
 
 
 ## 🚀 Revolutionary Features That Set Us Apart
